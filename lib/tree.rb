@@ -18,7 +18,8 @@ class Tree
     # preorder(@root) { |node| p node.data }
     # inorder(@root) { |node| p node.data }
     # postorder(@root) { |node| p node.data }
-    # p height(@root)
+    # height(@root)
+    # depth(@root)
   end
 
   def build_tree(array)
@@ -150,6 +151,22 @@ class Tree
     left_height = height(node.left_child)
     right_height = height(node.right_child)
     [left_height, right_height].max + 1
+  end
+
+  def depth(node)
+    return node if node.nil?
+
+    current = root
+    i = 0
+    until current.data == node.data
+      if node.data < current.data
+        current = current.left_child
+      elsif node.data > current.data
+        current = current.right_child
+      end
+      i += 1
+    end
+    i
   end
 end
 
