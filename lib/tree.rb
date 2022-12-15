@@ -12,7 +12,10 @@ class Tree
     # p min_value_node(@root.right_child.right_child)
     # delete(67)
     # pretty_print(@root)
-    p find(7)
+    # p find(7)
+    level_order do |node|
+      p node.data
+    end
   end
 
   def build_tree(array)
@@ -86,7 +89,27 @@ class Tree
     elsif value > node.data
       find(value, node.right_child)
     end
+  end
 
+  # accepts a block and traverses the tree in breadth-level order
+  # and yields each node to the provided block, return an array
+  # of values if no block is given
+  def level_order
+    return root if root.nil?
+
+    queue = []
+    value_array = []
+    queue.push(root)
+    while queue.length >= 1
+      visit_node = queue.shift
+      if block_given?
+        yield(visit_node)
+      else
+        value_array.push(visit_node.data)
+      end
+      queue.push(visit_node.left_child) unless visit_node.left_child.nil?
+      queue.push(visit_node.right_child) unless visit_node.right_child.nil?
+    end
   end
 
 end
@@ -95,14 +118,4 @@ array = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]
 array2 = [5, 7, 1, 3, 2, 6, 4]
 Tree.new(array)
 
-# 3 cases
-# delete a leaf in the tree (end one)
-    # structure won't change, node that previously pointed to that tree won't anymore
-# delete a node with one child
-    # replace it with its child, point node's parent to its child
-# delete a node (Node A) with two children
-    # find thing in tree that's next biggest (Node X), the smallest thing in it's right subtree
-        # look in right subtree, node on very far left
-        # recursively remove Node X
-    # replace Node A with Node X
 
