@@ -5,7 +5,7 @@ class Tree
 
   def initialize(array)
     @root = build_tree(array)
-    @value_array = []
+    @array = []
     pretty_print(@root)
     # insert(600)
     # insert(500)
@@ -15,9 +15,9 @@ class Tree
     # pretty_print(@root)
     # p find(7)
     # level_order { |node| p node.data }
-    preorder(@root) { |node| p node.data }
-    #   p node.data
-    # end
+    # preorder(@root) { |node| p node.data }
+    # inorder(@root) { |node| p node.data }
+    # postorder(@root) { |node| p node.data }
   end
 
   def build_tree(array)
@@ -100,44 +100,48 @@ class Tree
     return root if root.nil?
 
     queue = []
-    value_array = []
+    array = []
     queue.push(root)
     while queue.length >= 1
       visit_node = queue.shift
       block.call(visit_node) if block_given?
 
-      value_array.push(visit_node.data) 
+      array.push(visit_node.data)
       queue.push(visit_node.left_child) unless visit_node.left_child.nil?
       queue.push(visit_node.right_child) unless visit_node.right_child.nil?
     end
-    value_array unless block_given?
+    array unless block_given?
   end
 
   # accepts a block and traverses the tree in depth-first order
   # and yields each node to the provided block
-  def inorder(node = root)
-    return node unless node.nil?
-
-    p node.data
-    inorder
-  end
-
-  def preorder(node = root, value_array = [])
-    # value_array = []
+  def inorder(node = root, array = [], &block)
     return node if node.nil?
 
-    # if block_given?
-    #   yield(node)
-    # else
-    #   @value_array.push(node.data)
-    # end
-    yield(node)
-    preorder(node.left_child)
-    preorder(node.right_child)
-    # @value_array
+    inorder(node.left_child, array, &block)
+    array.push(node.data)
+    block.call(node) if block_given?
+    inorder(node.right_child, array, &block)
+    array unless block_given?
   end
 
-  def postorder
+  def preorder(node = root, array = [], &block)
+    return node if node.nil?
+
+    block.call(node) if block_given?
+    preorder(node.left_child, array, &block)
+    preorder(node.right_child, array, &block)
+    array.push(node.data) unless block_given?
+  end
+
+  def postorder(node = root, array = [], &block)
+    return node if node.nil?
+
+    postorder(node.left_child, array, &block)
+    postorder(node.right_child, array, &block)
+    block.call(node) if block_given?
+    array.push(node.data) unless block_given?
+    
   end
 end
 
