@@ -5,6 +5,7 @@ class Tree
 
   def initialize(array)
     @root = build_tree(array)
+    @value_array = []
     pretty_print(@root)
     # insert(600)
     # insert(500)
@@ -13,9 +14,10 @@ class Tree
     # delete(67)
     # pretty_print(@root)
     # p find(7)
-    level_order do |node|
-      p node.data
-    end
+    # level_order { |node| p node.data }
+    preorder(@root) { |node| p node.data }
+    #   p node.data
+    # end
   end
 
   def build_tree(array)
@@ -94,7 +96,7 @@ class Tree
   # accepts a block and traverses the tree in breadth-level order
   # and yields each node to the provided block, return an array
   # of values if no block is given
-  def level_order
+  def level_order(&block)
     return root if root.nil?
 
     queue = []
@@ -102,16 +104,41 @@ class Tree
     queue.push(root)
     while queue.length >= 1
       visit_node = queue.shift
-      if block_given?
-        yield(visit_node)
-      else
-        value_array.push(visit_node.data)
-      end
+      block.call(visit_node) if block_given?
+
+      value_array.push(visit_node.data) 
       queue.push(visit_node.left_child) unless visit_node.left_child.nil?
       queue.push(visit_node.right_child) unless visit_node.right_child.nil?
     end
+    value_array unless block_given?
   end
 
+  # accepts a block and traverses the tree in depth-first order
+  # and yields each node to the provided block
+  def inorder(node = root)
+    return node unless node.nil?
+
+    p node.data
+    inorder
+  end
+
+  def preorder(node = root, value_array = [])
+    # value_array = []
+    return node if node.nil?
+
+    # if block_given?
+    #   yield(node)
+    # else
+    #   @value_array.push(node.data)
+    # end
+    yield(node)
+    preorder(node.left_child)
+    preorder(node.right_child)
+    # @value_array
+  end
+
+  def postorder
+  end
 end
 
 array = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]
