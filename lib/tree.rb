@@ -18,6 +18,7 @@ class Tree
     # preorder(@root) { |node| p node.data }
     # inorder(@root) { |node| p node.data }
     # postorder(@root) { |node| p node.data }
+    # p height(@root)
   end
 
   def build_tree(array)
@@ -141,7 +142,14 @@ class Tree
     postorder(node.right_child, array, &block)
     block.call(node) if block_given?
     array.push(node.data) unless block_given?
-    
+  end
+
+  def height(node)
+    return -1 if node.nil?
+
+    left_height = height(node.left_child)
+    right_height = height(node.right_child)
+    [left_height, right_height].max + 1
   end
 end
 
