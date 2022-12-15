@@ -10,8 +10,9 @@ class Tree
     # insert(500)
     # pretty_print(@root)
     # p min_value_node(@root.right_child.right_child)
-    delete(67)
-    pretty_print(@root)
+    # delete(67)
+    # pretty_print(@root)
+    p find(7)
   end
 
   def build_tree(array)
@@ -34,11 +35,12 @@ class Tree
     pretty_print(node.left_child, "#{prefix}#{is_left ? '    ' : '│   '}", true) if node.left_child
   end
 
+  # accepts a value to insert
   def insert(value, node = root)
     if root.nil?
       Node.new(value)
     elsif value == node.data
-      return nil
+      nil
     else
       if value < node.data
         node.left_child.nil? ? node.left_child = Node.new(value) : insert(value, node.left_child) 
@@ -55,7 +57,7 @@ class Tree
     current
   end
 
-  # deletes the value provided and returns the new root
+  # accept a value to delete and returns the new root
   def delete(value, node = root)
     return node if node.nil?
 
@@ -72,6 +74,19 @@ class Tree
       node.right_child = delete(min_node.data, node.right_child)
     end
     node
+  end
+
+  # accepts a value and returns the node with the given value
+  def find(value, node = root)
+    return node if node.nil?
+    return node if value == node.data
+
+    if value < node.data
+      find(value, node.left_child)
+    elsif value > node.data
+      find(value, node.right_child)
+    end
+
   end
 
 end
