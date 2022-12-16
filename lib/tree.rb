@@ -7,9 +7,9 @@ class Tree
     @root = build_tree(array)
     @array = []
     pretty_print(@root)
-    # insert(600)
-    # insert(500)
-    # pretty_print(@root)
+    insert(600)
+    insert(500)
+    pretty_print(@root)
     # p min_value_node(@root.right_child.right_child)
     # delete(67)
     # pretty_print(@root)
@@ -20,6 +20,9 @@ class Tree
     # postorder(@root) { |node| p node.data }
     # height(@root)
     # p depth(@root.left_child.right_child)
+    p balanced?
+    rebalance(@root)
+    pretty_print(@root)
     p balanced?
   end
 
@@ -175,6 +178,11 @@ class Tree
     return true if diff.between?(-1, 1)
 
     false
+  end
+
+  def rebalance(root)
+    array = inorder(root)
+    @root = build_tree(array)
   end
 end
 
