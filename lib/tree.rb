@@ -19,7 +19,8 @@ class Tree
     # inorder(@root) { |node| p node.data }
     # postorder(@root) { |node| p node.data }
     # height(@root)
-    # depth(@root)
+    # p depth(@root.left_child.right_child)
+    p balanced?
   end
 
   def build_tree(array)
@@ -167,6 +168,13 @@ class Tree
       i += 1
     end
     i
+  end
+
+  def balanced?
+    diff = height(root.left_child) - height(root.right_child)
+    return true if diff.between?(-1, 1)
+
+    false
   end
 end
 
