@@ -6,10 +6,10 @@ class Tree
   def initialize(array)
     @root = build_tree(array)
     @array = []
-    pretty_print(@root)
-    insert(600)
-    insert(500)
-    pretty_print(@root)
+    pretty_print(root = @root)
+    # insert(600)
+    # insert(500)
+    # pretty_print(@root)
     # p min_value_node(@root.right_child.right_child)
     # delete(67)
     # pretty_print(@root)
@@ -20,10 +20,10 @@ class Tree
     # postorder(@root) { |node| p node.data }
     # height(@root)
     # p depth(@root.left_child.right_child)
-    p balanced?
-    rebalance(@root)
-    pretty_print(@root)
-    p balanced?
+    # p balanced?
+    # rebalance(@root)
+    # pretty_print(@root)
+    # p balanced?
   end
 
   def build_tree(array)
@@ -180,14 +180,12 @@ class Tree
     false
   end
 
-  def rebalance(root)
+  def rebalance(root = @root)
     array = inorder(root)
     @root = build_tree(array)
   end
 end
 
-array = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]
-array2 = [5, 7, 1, 3, 2, 6, 4]
-Tree.new(array)
+
 
 
