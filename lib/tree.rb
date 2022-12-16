@@ -7,23 +7,6 @@ class Tree
     @root = build_tree(array)
     @array = []
     pretty_print(root = @root)
-    # insert(600)
-    # insert(500)
-    # pretty_print(@root)
-    # p min_value_node(@root.right_child.right_child)
-    # delete(67)
-    # pretty_print(@root)
-    # p find(7)
-    # level_order { |node| p node.data }
-    # preorder(@root) { |node| p node.data }
-    # inorder(@root) { |node| p node.data }
-    # postorder(@root) { |node| p node.data }
-    # height(@root)
-    # p depth(@root.left_child.right_child)
-    # p balanced?
-    # rebalance(@root)
-    # pretty_print(@root)
-    # p balanced?
   end
 
   def build_tree(array)

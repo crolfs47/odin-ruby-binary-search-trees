@@ -10,8 +10,9 @@ Implementation of a balanced binary search tree in ruby.
 
 ## What I learned:
  - Better understanding of data structures, OOP
+ - Getting better at understanding recursion
  
 ## Still can improve:
- - 
+ - See if I can shorten some of my methods with better code
 
 Assignment - https://www.theodinproject.com/lessons/ruby-binary-search-trees
